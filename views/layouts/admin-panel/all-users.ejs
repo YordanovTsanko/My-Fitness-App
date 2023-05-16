@@ -1,0 +1,62 @@
+<div class="w-100 h-100">
+    <div class="row">
+        <div class="col-12 mt-1 d-flex border-bottom ">
+            <div class="d-flex align-items-center justify-content-center mt-2 all-user-sort">
+                <div class="box-user-title">
+                    <h5 class="filter-js active-user-filter">No:</h5>
+                </div>
+                <div class="box-user-title">
+                    <h5 class="filter-js">Email:</h5>
+                </div>
+                <div class="box-user-title">
+                    <h5 class="filter-js">Name:</h5>
+                </div>
+                <div class="box-user-title">
+                    <h5 class="filter-js">Date:</h5>
+                </div>
+                <div class="box-user-title">
+                    <h5 class="filter-js">Orders:</h5>
+                </div>
+                <div class="box-user-title">
+                    <h5 class="filter-js">ID:</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-2">
+            <% for (var i=0; i<users.length; i++) { %>
+            <div class="d-flex align-items-center">
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= i+1 %></h5>
+                    </div>
+                </div>
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= users[i].email %></h5>
+                    </div>
+                </div>
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= users[i].name %></h5>
+                    </div>
+                </div>
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= users[i].date.toLocaleDateString() + ' '+ users[i].date.toLocaleTimeString() %></h5>
+                    </div>
+                </div>
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= users[i].quotes.length %></h5>
+                    </div>
+                </div>
+                <div class="box-user">
+                    <div class="user-fill">
+                        <h5><%= users[i].id %></h5>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>

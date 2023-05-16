@@ -1,0 +1,89 @@
+<div class="w-100 h-100">
+    <div class="row">
+        <div class="col-12 mt-2 d-flex flex-column">
+            <% if (singleO) { console.log(singleO.name) %>
+
+                <div class="order-wrapper mt-3">
+                    <button class="btn bg-warning" id="back-to-orders">Go Back</button>
+                    <h4><b>Order ID:</b>
+                        <%= singleO._id %>
+                    </h4>
+                    <h5><b>Trace ID:</b>
+                        <%= singleO.traceID %> : <strong>
+                                <%= singleO.traceID.substr(1, 5).toUpperCase(); %>
+                            </strong>
+                    </h5>
+                    <h6><b>Name:</b>
+                        <%= singleO.name %>
+                    </h6>
+                    <h6><b>Phone:</b>
+                        <%= singleO.phone %>
+                    </h6>
+                    <h6><b>Email:</b>
+                        <%= singleO.email %>
+                    </h6>
+                    <h6><b>Марка:</b>
+                        <%= singleO.make %>
+                    </h6>
+                    <h6><b>Модел:</b>
+                        <%= singleO.model %>
+                    </h6>
+                    <h6><b>Option:</b>
+                        <%= singleO.option %>
+                    </h6>
+                    <h6><b>Pick-Up:</b>
+                        <%= singleO.pickUp %>
+                    </h6>
+                    <h6><b>Drop-Off:</b>
+                        <%= singleO.dropOff %>
+                    </h6>
+                    <h6><b>Price:</b>
+                        <%= singleO.price %>лв.
+                    </h6>
+                    <h6><b>Status:</b>
+                        <%= singleO.process %>
+                    </h6>
+                    <h6><b>Date Paid:</b>
+                        <%= singleO.datePaid%>
+                    </h6>
+                    <h6><b>Quote Date:</b>
+                        <%= singleO.time%>
+                    </h6>
+                    <h6><b>Quote Lat:</b>
+                        <%= singleO.lat%>
+                    </h6>
+                    <h6><b>Quote Long:</b>
+                        <%= singleO.long%>
+                    </h6>
+                    <div class="d-flex">
+                        <button class="btn bg-success" id="edit-booking" data-id="<%= singleO._id %>">Edit</button>
+                        <button class="btn bg-danger" id="delete-booking" data-id="<%= singleO._id %>">Delete</button>
+                    </div>
+                </div>
+                <% } %>
+                    <% for (var i=0; i< orders.length; i++) { %>
+                        <div class="order-wrapper">
+                            <h4 class="order-selector" style="cursor: pointer;" data-id="<%= orders[i]._id %>"><b>Order
+                                    ID:</b>
+                                <%= orders[i]._id %>
+                            </h4>
+                            <h6><b>Name:</b>
+                                <%= orders[i].name %>
+                            </h6>
+                            <h6><b>Phone:</b>
+                                <%= orders[i].phone %>
+                            </h6>
+                            <h6><b>Email:</b>
+                                <%= orders[i].email %>
+                            </h6>
+                            <h6><b>Status:</b>
+                                <%= orders[i].process %>
+                            </h6>
+                            <h6><b>Quote Date:</b>
+                                <%= orders[i].datePaid %>
+                            </h6>
+                        </div>
+                        <% } %>
+        </div>
+    </div>
+</div>

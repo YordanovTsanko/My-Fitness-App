@@ -1,0 +1,150 @@
+.top-cm {
+  width: 216px;
+}
+.top-cm h1 {
+  text-decoration: underline rgb(179, 179, 179) 2px;
+  text-underline-offset: 10px;
+  -webkit-text-decoration: underline rgb(179, 179, 179) 2px;
+  -webkit-text-underline-offset: 10px;
+  text-align: center;
+}
+.contact-form {
+  width: max(50%, min(500px, 100%));
+  height: 590px;
+}
+.contact-form form {
+  height: 90%;
+  overflow: auto;
+}
+.form-input {
+  padding: 30px;
+}
+#name-c,
+#email-c,
+#message-c {
+  border: none;
+  outline: none;
+  margin-top: -8px;
+  padding-bottom: 0px;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-border-radius: 0; 
+  border-radius: 0;
+  background-color: none;
+  border-bottom: 1px solid rgb(151, 151, 151);
+}
+#message-c:blank {
+  width: 100%;
+  height: 28px;
+  resize: none;
+  overflow: auto;
+  white-space: pre-line;
+  -webkit-transition: height 0.35s ease-in-out;
+  transition: height 0.35s ease-in-out;
+}
+#message-c {
+  width: 100%;
+  height: 28px;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-line;
+  -webkit-transition: height 0.35s ease-in-out;
+  transition: height 0.35s ease-in-out;
+}
+.msg-lenght {
+  display: flex;
+  font-size: 10px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+#btn-c {
+  border: none;
+  align-self: center;
+  background-color: #000000;
+  color: white;
+  width: 70%;
+  padding: 10px 50px;
+  border-radius: 5px;
+}
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: transparent;
+}
+
+.heightOpen {
+  height: 300px;
+}
+
+@media (max-width: 353px) {
+  .form-input {
+    padding: 13px;
+  }
+}
+@media (max-width: 312px) {
+  input::placeholder,
+  textarea::placeholder {
+    font: 11px/3 sans-serif;
+  }
+  .msg-lenght {
+    bottom: -6px;
+  }
+  .form-input {
+    padding: 3px;
+  }
+  .contact-form {
+    width: max(50%, min(500px, 100%));
+    height: 540px;
+  }
+  .contact-form form {
+    height: 90%;
+  }
+}
+
+/* /////////Contact me/////////// */
+.background-top{
+  height: 420px;
+  background: url('../img/contact-backgorund.jpg') no-repeat center !important;
+  background-size: cover !important;
+  overflow: hidden;
+}
+.center-transition{
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+  color: white;
+  font-weight: 1000;
+}
+.box-live{
+  width: 350px;
+  height: 250px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.box-live i {
+  font-size: 34px;
+}
+.relative-support {
+  height: 305px;
+  /* background-color: #000000; */
+}
+.absolute-support{
+  position: absolute;
+  top: -55px;
+}
+
+@media (max-width: 767px) {
+  .form-input {
+    padding: 13px;
+  }
+  .relative-support {
+    height: 610px;
+    background-color: #000000;
+  }
+}
