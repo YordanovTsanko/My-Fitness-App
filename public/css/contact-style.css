@@ -9,7 +9,7 @@
   position: relative;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
   transition: transform 0.3s ease;
   color: white;
   font-weight: 1000;
@@ -28,7 +28,7 @@
   font-size: 34px;
 }
 .relative-support {
-  height: 305px;
+  height: 250px;
 }
 .absolute-support{
   position: absolute;
@@ -42,7 +42,7 @@
     padding: 13px;
   }
   .relative-support {
-    height: 550px;
+    height: 530px;
   }
 }
 
