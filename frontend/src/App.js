@@ -13,7 +13,6 @@ import Locations from "./pages/Locations.jsx";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -26,7 +25,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
 margin: 0 auto;
   width: 100%;
-  min-height: 100vh;
   max-width: 1400px;
 
 `;

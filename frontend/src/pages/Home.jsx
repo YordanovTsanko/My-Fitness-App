@@ -9,7 +9,7 @@ import {
   Star,
   Tags,
 } from "react-bootstrap-icons";
-import CaloriesClac from "../components/CaloriesCalc";
+import CaloriesClacComp from "../components/CaloriesCalcComp";
 
 const HomeContainer = styled.div`
   color: ${({ theme }) => theme.text_primary};
@@ -345,7 +345,7 @@ const Home = () => {
                   support.
                 </Card.Text>
                 <ButtonPlans variant="primary" className="border-0">
-                  Buy Now
+                  See More
                 </ButtonPlans>
               </Card.Body>
             </Card>
@@ -370,7 +370,7 @@ const Home = () => {
                   and nutrition plans.
                 </Card.Text>
                 <ButtonPlans variant="primary" className="border-0">
-                  Buy Now
+                  See more
                 </ButtonPlans>
               </Card.Body>
             </Card>
@@ -395,7 +395,7 @@ const Home = () => {
                   events and workshops.
                 </Card.Text>
                 <ButtonPlans variant="primary" className="border-0">
-                  Buy Now
+                  See More
                 </ButtonPlans>
               </Card.Body>
             </Card>
@@ -403,7 +403,7 @@ const Home = () => {
         </Row>
       </OurPlansWrapper>
 
-      <CaloriesClac />
+      <CaloriesClacComp />
 
     </HomeContainer>
   );
