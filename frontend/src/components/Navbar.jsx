@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ListTask, X } from "react-bootstrap-icons";
@@ -67,7 +66,6 @@ const ToggleButton = styled.button`
   cursor: pointer;
   display: none;
 
-
   @media (max-width: 768px) {
     display: block;
   }
@@ -85,8 +83,9 @@ const NavMenu = styled.ul`
     opacity: ${(props) => (props.isOpen ? 1 : 0)};
     transform: ${(props) =>
       props.isOpen ? "translateX(0)" : "translateX(80px)"};
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
     flex-direction: column;
+    align-items: flex-end;
     position: absolute;
     top: 60px;
     min-width: 60%;
@@ -94,6 +93,8 @@ const NavMenu = styled.ul`
     right: 0;
     background-color: ${({ theme }) => theme.navbar};
     pointer-events: ${(props) => (props.isOpen ? "auto" : "none")};
+    overflow: hidden;
+    max-height: ${(props) => (props.isOpen ? "500px" : "0")};
   }
 `;
 
@@ -142,13 +143,16 @@ const Navbar = () => {
           <a href="/">Home</a>
         </NavItem>
         <NavItem>
-          <a href="/about">Calculator</a>
+          <a href="/calculator">Calculator</a>
         </NavItem>
         <NavItem>
-          <a href="/services">Our Plans</a>
+          <a href="/plans">Our Plans</a>
         </NavItem>
         <NavItem>
-          <a href="/contact">Locations</a>
+          <a href="/locations">Locations</a>
+        </NavItem>
+        <NavItem>
+          <a href="/login">Sign In</a>
         </NavItem>
         <JoinUsButton onClick={() => navigate("/register")}>
           Join Us

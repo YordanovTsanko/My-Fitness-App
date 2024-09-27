@@ -9,6 +9,7 @@ import {
   Star,
   Tags,
 } from "react-bootstrap-icons";
+import CaloriesClac from "../components/CaloriesCalc";
 
 const HomeContainer = styled.div`
   color: ${({ theme }) => theme.text_primary};
@@ -164,7 +165,7 @@ const RoundedDiv = styled.div`
       }
 
       h5 {
-      margin-top: -7px;
+        margin-top: -7px;
         font-size: 0.8rem;
       }
     }
@@ -317,6 +318,7 @@ const Home = () => {
           </Col>
         </Row>
       </WhyUsWrapper>
+
       <OurPlansWrapper>
         <Row>
           <Col xs={12} className="text-center pt-3 pb-3 ps-5 pe-5  p-md-3">
@@ -400,6 +402,9 @@ const Home = () => {
           </Col>
         </Row>
       </OurPlansWrapper>
+
+      <CaloriesClac />
+
     </HomeContainer>
   );
 };

@@ -7,6 +7,9 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Register from "./pages/Register.jsx"
 import Login from "./pages/Login.jsx"
 import Footer from "./components/Footer.jsx";
+import CaloriesCalc from "./pages/CaloriesCalc.jsx";
+import OurPlans from "./pages/OurPlans.jsx";
+import Locations from "./pages/Locations.jsx";
 
 const Container = styled.div`
   width: 100%;
@@ -37,6 +40,9 @@ const App = () => {
           <Wrapper>
             <Routes>
               <Route path="/" element={<Home />} exact />
+              <Route path="/calculator" element={<CaloriesCalc />} exact />
+              <Route path="/plans" element={<OurPlans />} exact />
+              <Route path="/locations" element={<Locations />} exact />
               <Route path="/contact" element={<ContactUs />} exact />
               <Route path="/register" element={<Register />} exact />
               <Route path="/login" element={<Login />} exact />

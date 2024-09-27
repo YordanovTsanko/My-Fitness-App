@@ -1,0 +1,20 @@
+.btn-primary#genderDropdown,
+.btn-primary#activityDropdown {
+  --bs-btn-bg: inherit !important;
+  --bs-btn-border-color: #ededed !important;
+  --bs-btn-hover-color: #ff9800 !important;
+  --bs-btn-hover-bg: inherit !important;
+  --bs-btn-hover-border-color: #ff9800 !important;
+  --bs-btn-active-color: #ff9800 !important;
+  --bs-btn-active-bg: inherit !important;
+  --bs-btn-active-border-color: #ff9800 !important;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  --bs-dropdown-bg: #ff9900 !important;
+  border: none !important;
+}

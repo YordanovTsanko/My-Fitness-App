@@ -12,6 +12,7 @@ import {
 import styled, { ThemeContext } from "styled-components";
 
 const FooterWrapper = styled.div`
+border-top: 15px solid ${({ theme }) => theme.secondary};
 background : ${({ theme }) => theme.navbar};
   color: ${({ theme }) => theme.text_primary};
 `;
