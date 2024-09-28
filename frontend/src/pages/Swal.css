@@ -1,0 +1,8 @@
+.swal-button {
+  background-color: #8fce00 !important;
+  transition: all 0.5s ease;
+}
+.swal-button:hover {
+    background-color: #37474f !important;
+  }
+  

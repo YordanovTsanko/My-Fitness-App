@@ -418,7 +418,7 @@ const Home = () => {
           </Col>
         </Row>
       </OurPlansWrapper>
-      <div className="ps-5 pe-5">
+      <div className="ps-2 pe-2">
         <CaloriesClacComp />
       </div>
     </HomeContainer>

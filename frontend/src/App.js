@@ -1,11 +1,12 @@
 import Navbar from "./components/Navbar.jsx";
 import { lightTheme } from "./utils/Theme.js";
+import { AuthProvider } from "./utils/authContext.js";
 import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
-import Register from "./pages/Register.jsx"
-import Login from "./pages/Login.jsx"
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
 import Footer from "./components/Footer.jsx";
 import CaloriesCalc from "./pages/CaloriesCalc.jsx";
 import OurPlans from "./pages/OurPlans.jsx";
@@ -23,33 +24,34 @@ const Container = styled.div`
   transition: all 0.2s ease;
 `;
 const Wrapper = styled.div`
-margin: 0 auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 1400px;
-
 `;
 
 const App = () => {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <Container>
-        <BrowserRouter>
-          <Navbar />
-          <Wrapper>
-            <Routes>
-              <Route path="/" element={<Home />} exact />
-              <Route path="/calculator" element={<CaloriesCalc />} exact />
-              <Route path="/plans" element={<OurPlans />} exact />
-              <Route path="/locations" element={<Locations />} exact />
-              <Route path="/register" element={<Register />} exact />
-              <Route path="/login" element={<Login />} exact />
-              <Route path="/profile" element={<Profile />} exact />
-            </Routes>
-          </Wrapper>
-          <Footer />
-        </BrowserRouter>
-      </Container>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={lightTheme}>
+        <Container>
+          <BrowserRouter>
+            <Navbar />
+            <Wrapper>
+              <Routes>
+                <Route path="/" element={<Home />} exact />
+                <Route path="/calculator" element={<CaloriesCalc />} exact />
+                <Route path="/plans" element={<OurPlans />} exact />
+                <Route path="/locations" element={<Locations />} exact />
+                <Route path="/register" element={<Register />} exact />
+                <Route path="/login" element={<Login />} exact />
+                <Route path="/profile" element={<Profile />} exact />
+              </Routes>
+            </Wrapper>
+            <Footer />
+          </BrowserRouter>
+        </Container>
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
 

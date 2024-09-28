@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Col, Row, Form, Card, Button, Table } from "react-bootstrap";
 import styled from "styled-components";
 import { People, Shield, Star } from "react-bootstrap-icons";
+import Swal from "sweetalert";
+import "./Swal.css";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -70,6 +73,47 @@ const ButtonPlans = styled(Button)`
 
 const OurPlans = () => {
   const [checked, setChecked] = useState(true);
+  const [cart, setCart] = useState("");
+  const auth = true;
+
+  const [plansPrices, setPlansPrices] = useState({
+    basic: 15,
+    premium: 25,
+    vip: 30,
+  });
+
+  const navigate = useNavigate();
+
+  const handleSwitch = () => {
+    if (checked) {
+      setPlansPrices((prevPrices) =>
+        Object.fromEntries(
+          Object.entries(prevPrices).map(([key, value]) => [key, value * 10])
+        )
+      );
+    } else {
+      setPlansPrices((prevPrices) =>
+        Object.fromEntries(
+          Object.entries(prevPrices).map(([key, value]) => [key, value / 10])
+        )
+      );
+    }
+  };
+
+  const handleAddtoBasket = (price) => {
+    if (auth) {
+      if (cart.length === 0) {
+        setCart(price);
+        Swal(
+          `Plan added successfully to the card. Price: £${price.toFixed(2)}`
+        );
+      } else {
+        Swal(`Already plan is added to the cart. Please check your cart`);
+      }
+    } else {
+      navigate("/register");
+    }
+  };
 
   return (
     <Container className="mt-4">
@@ -81,11 +125,14 @@ const OurPlans = () => {
             <Form.Check
               type="switch"
               value={checked}
-              onChange={() => setChecked(!checked)}
+              onChange={() => {
+                handleSwitch();
+                setChecked(!checked);
+              }}
               id="custom-switch"
               label="Yearly"
             />
-            <p>Save 30%</p>
+            <p>Get 2 months free</p>
           </StyledForm>
         </Col>
       </Row>
@@ -194,7 +241,13 @@ const OurPlans = () => {
                       </tr>
                     </tbody>
                   </StyledTable>
-                  <ButtonPlans className="border-0">Buy Now</ButtonPlans>
+                  <h2>£{plansPrices.basic.toFixed(2)}</h2>
+                  <ButtonPlans
+                    className="border-0"
+                    onClick={() => handleAddtoBasket(plansPrices.basic)}
+                  >
+                    Buy Now
+                  </ButtonPlans>
                 </Card.Body>
               </StyledCard>
             </PlansCol>
@@ -304,7 +357,12 @@ const OurPlans = () => {
                       </tr>
                     </tbody>
                   </StyledTable>
-                  <ButtonPlans green className="border-0">
+                  <h2>£{plansPrices.premium.toFixed(2)}</h2>
+                  <ButtonPlans
+                    green
+                    className="border-0"
+                    onClick={() => handleAddtoBasket(plansPrices.premium)}
+                  >
                     Buy Now
                   </ButtonPlans>
                 </Card.Body>
@@ -419,7 +477,13 @@ const OurPlans = () => {
                       </tr>
                     </tbody>
                   </StyledTable>
-                  <ButtonPlans className="border-0">Buy Now</ButtonPlans>
+                  <h2>£{plansPrices.vip.toFixed(2)}</h2>
+                  <ButtonPlans
+                    className="border-0"
+                    onClick={() => handleAddtoBasket(plansPrices.vip)}
+                  >
+                    Buy Now
+                  </ButtonPlans>
                 </Card.Body>
               </StyledCard>
             </PlansCol>

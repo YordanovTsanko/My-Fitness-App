@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Row, Col, Form, Image } from "react-bootstrap";
+import { useAuth } from '../utils/authContext';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -86,6 +87,13 @@ const StyledFormCheck = styled(Form.Check)`
 
 const Login = () => {
   const navigate = useNavigate();
+  const { user, login } = useAuth();
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    login({name: "hasan", password:"123"})
+    console.log(user)
+  }
 
   return (
     <Container>
@@ -131,7 +139,7 @@ const Login = () => {
               <div className="d-flex flex-column gap-4 align-items-start">
                 <Link to="/">Forgot Password ? </Link>
 
-                <Button type="submit" className="w-100">Submit</Button>
+                <Button type="submit" className="w-100" onClick={handleLogin}>Submit</Button>
               </div>
             </ChildWrapper>
           </FormWrapper>

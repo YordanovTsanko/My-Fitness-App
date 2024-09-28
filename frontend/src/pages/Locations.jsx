@@ -35,6 +35,7 @@ const Title = styled.h2`
 `;
 
 const ImgContainer = styled.div`
+margin: 0 auto;
   max-width: 600px;
   width: 100%;
   padding: 16px;
@@ -96,6 +97,7 @@ const Locations = () => {
           <Image
             height="600px"
             width="600px"
+            className="mt-4"
             src={cities[selectedCity]}
             alt={selectedCity}
           />

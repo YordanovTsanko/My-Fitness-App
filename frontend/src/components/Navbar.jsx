@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ListTask, X } from "react-bootstrap-icons";
+import { Basket, ListTask, X } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -87,7 +88,7 @@ const NavMenu = styled.ul`
     flex-direction: column;
     align-items: flex-end;
     position: absolute;
-    top: 60px;
+    top: 56px;
     min-width: 60%;
     height: 100%;
     right: 0;
@@ -116,11 +117,37 @@ const NavItem = styled.li`
   }
 `;
 
+const BasketContainer = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.secondary};
+  cursor: pointer;
+  span {
+    margin-left: 14px;
+    font-size: 1rem;
+    margin-bottom: -4px;
+    margin-right: 17px;
+    display:none;
+    color: ${({ theme }) => theme.secondary};
+  }
+
+  @media (max-width: 855px) {
+    margin-right: 0px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    span{
+    display:block;
+    }
+  }
+`;
+
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-  const auth = false;
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -132,7 +159,7 @@ const Navbar = () => {
         My Fitness <span style={{ color: "#8fce00" }}>App</span>
       </NavbarBrand>
       <ButtonsWrapper>
-        {!auth && (
+        {user === null && (
           <MobileJoinUsButton onClick={() => navigate("/register")}>
             Join Us
           </MobileJoinUsButton>
@@ -142,7 +169,13 @@ const Navbar = () => {
         </ToggleButton>
       </ButtonsWrapper>
       <NavMenu isOpen={isOpen}>
-        {auth && (
+        {user !== null && (
+          <BasketContainer onClick={()=> navigate("/basket")}>
+            <Basket size={26} />
+            <span>Basket</span>
+          </BasketContainer>
+        )}
+        {user !== null && (
           <NavItem>
             <a href="/profile">Profile</a>
           </NavItem>
@@ -160,15 +193,15 @@ const Navbar = () => {
           <a href="/locations">Locations</a>
         </NavItem>
         <NavItem>
-          {auth ? (
-            <a href="/login" style={{ color: "#8fce00" }}>
+          {user !== null ? (
+            <a href="/" onClick={logout} style={{ color: "#8fce00" }}>
               Log Out
             </a>
           ) : (
             <a href="/login">Sign In</a>
           )}
         </NavItem>
-        {!auth && (
+        {user === null && (
           <JoinUsButton onClick={() => navigate("/register")}>
             Join Us
           </JoinUsButton>
