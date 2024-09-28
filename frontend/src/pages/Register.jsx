@@ -7,7 +7,7 @@ import "./Check.css";
 const Container = styled.div`
   min-height: 100vh;
   width: 100%;
-  padding: 50px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
 `;

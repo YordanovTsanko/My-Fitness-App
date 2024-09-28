@@ -10,6 +10,7 @@ import {
   Tags,
 } from "react-bootstrap-icons";
 import CaloriesClacComp from "../components/CaloriesCalcComp";
+import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
   color: ${({ theme }) => theme.text_primary};
@@ -208,6 +209,7 @@ const ParentRoundedDiv = styled.div`
 
 const OurPlansWrapper = styled.section`
   color: ${({ theme }) => theme.text_primary};
+  margin-top: 20px;
 
   h2 {
     font-size: 2rem;
@@ -227,6 +229,8 @@ const ButtonPlans = styled(Button)`
 
 const Home = () => {
   const theme = useContext(ThemeContext);
+
+  const navigate = useNavigate();
 
   return (
     <HomeContainer>
@@ -344,7 +348,11 @@ const Home = () => {
                   Access to gym equipment, group classes, and our community
                   support.
                 </Card.Text>
-                <ButtonPlans variant="primary" className="border-0">
+                <ButtonPlans
+                  variant="primary"
+                  className="border-0"
+                  onClick={() => navigate("/plans")}
+                >
                   See More
                 </ButtonPlans>
               </Card.Body>
@@ -369,7 +377,11 @@ const Home = () => {
                   Everything in the Basic Plan plus personal training sessions
                   and nutrition plans.
                 </Card.Text>
-                <ButtonPlans variant="primary" className="border-0">
+                <ButtonPlans
+                  variant="primary"
+                  className="border-0"
+                  onClick={() => navigate("/plans")}
+                >
                   See more
                 </ButtonPlans>
               </Card.Body>
@@ -394,7 +406,11 @@ const Home = () => {
                   Enjoy all Premium benefits plus exclusive access to special
                   events and workshops.
                 </Card.Text>
-                <ButtonPlans variant="primary" className="border-0">
+                <ButtonPlans
+                  variant="primary"
+                  className="border-0"
+                  onClick={() => navigate("/plans")}
+                >
                   See More
                 </ButtonPlans>
               </Card.Body>
@@ -402,9 +418,9 @@ const Home = () => {
           </Col>
         </Row>
       </OurPlansWrapper>
-
-      <CaloriesClacComp />
-
+      <div className="ps-5 pe-5">
+        <CaloriesClacComp />
+      </div>
     </HomeContainer>
   );
 };

@@ -4,24 +4,22 @@ import styled from "styled-components";
 import { Row } from "react-bootstrap";
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.secondary};
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text_primary};
 `;
 
 const Wrapper = styled(Row)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 
   h4:first-of-type {
     opacity: 0.9;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-
-    @media (max-width: 600px) {
-      width: 90%;
-    }
+  }
+  @media (max-width: 600px) {
+    width: 95%;
   }
 `;
 

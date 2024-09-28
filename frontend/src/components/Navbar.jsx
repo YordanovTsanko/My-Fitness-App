@@ -120,6 +120,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const auth = false;
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -131,14 +132,21 @@ const Navbar = () => {
         My Fitness <span style={{ color: "#8fce00" }}>App</span>
       </NavbarBrand>
       <ButtonsWrapper>
-        <MobileJoinUsButton onClick={() => navigate("/register")}>
-          Join Us
-        </MobileJoinUsButton>
+        {!auth && (
+          <MobileJoinUsButton onClick={() => navigate("/register")}>
+            Join Us
+          </MobileJoinUsButton>
+        )}
         <ToggleButton onClick={toggleNavbar}>
           {isOpen ? <X /> : <ListTask />}
         </ToggleButton>
       </ButtonsWrapper>
       <NavMenu isOpen={isOpen}>
+        {auth && (
+          <NavItem>
+            <a href="/profile">Profile</a>
+          </NavItem>
+        )}
         <NavItem>
           <a href="/">Home</a>
         </NavItem>
@@ -152,11 +160,19 @@ const Navbar = () => {
           <a href="/locations">Locations</a>
         </NavItem>
         <NavItem>
-          <a href="/login">Sign In</a>
+          {auth ? (
+            <a href="/login" style={{ color: "#8fce00" }}>
+              Log Out
+            </a>
+          ) : (
+            <a href="/login">Sign In</a>
+          )}
         </NavItem>
-        <JoinUsButton onClick={() => navigate("/register")}>
-          Join Us
-        </JoinUsButton>
+        {!auth && (
+          <JoinUsButton onClick={() => navigate("/register")}>
+            Join Us
+          </JoinUsButton>
+        )}
       </NavMenu>
     </NavbarContainer>
   );

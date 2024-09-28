@@ -3,7 +3,7 @@ import { lightTheme } from "./utils/Theme.js";
 import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import ContactUs from "./pages/ContactUs.jsx";
+import Profile from "./pages/Profile.jsx";
 import Register from "./pages/Register.jsx"
 import Login from "./pages/Login.jsx"
 import Footer from "./components/Footer.jsx";
@@ -41,9 +41,9 @@ const App = () => {
               <Route path="/calculator" element={<CaloriesCalc />} exact />
               <Route path="/plans" element={<OurPlans />} exact />
               <Route path="/locations" element={<Locations />} exact />
-              <Route path="/contact" element={<ContactUs />} exact />
               <Route path="/register" element={<Register />} exact />
               <Route path="/login" element={<Login />} exact />
+              <Route path="/profile" element={<Profile />} exact />
             </Routes>
           </Wrapper>
           <Footer />

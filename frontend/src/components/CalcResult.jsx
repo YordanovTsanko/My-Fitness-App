@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row } from "react-bootstrap";
 import styled from "styled-components";
 
 const CalcResult = ({ result, setResult }) => {
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
-
   const Wrapper = styled(Row)`
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
 
     h3 {
+      color: ${({ theme }) => theme.text_primary};
+    }
+    p {
       color: ${({ theme }) => theme.text_primary};
     }
   `;
@@ -29,14 +28,16 @@ const CalcResult = ({ result, setResult }) => {
 
     button {
       padding: 10px 20px;
+      border: none;
       border-radius: 8px;
       background: inherit;
       transition: all 0.4s ease;
       font-weight: 600;
       box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+      background: ${({ theme }) => theme.text_primary};
 
       &:hover {
-        background: ${({ theme }) => theme.text_primary};
+        background: ${({ theme }) => theme.orange};
       }
     }
   `;
@@ -45,7 +46,7 @@ const CalcResult = ({ result, setResult }) => {
     background: white;
     padding: 20px;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
-    border-radius:8px;
+    border-radius: 8px;
   `;
 
   return (
@@ -63,10 +64,12 @@ const CalcResult = ({ result, setResult }) => {
               {Object.keys(result).map((key) => (
                 <div key={key}>
                   <h4>{result[key].label}</h4>
-                  <p>
-                    <span className="fs-5 fw-bolder">{result[key].calories}</span> Calories/day (
-                    {result[key].percentage})
-                  </p>
+                  <h6 style={{color :"#ff9800"}}>
+                    <span className="fs-5 fw-bolder" style={{color :"#8fce00"}}>
+                      {result[key].calories}
+                    </span>{" "}
+                    Calories/day ({result[key].percentage})
+                  </h6>
                 </div>
               ))}
             </div>

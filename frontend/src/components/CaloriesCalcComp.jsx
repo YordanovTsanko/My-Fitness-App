@@ -13,9 +13,7 @@ import CalcResult from "./CalcResult";
 import { calculatorLogic } from "../utils/calculatorLogic";
 
 const Container = styled.div`
-  padding-top: 10px;
   padding-bottom: 10px;
-  background: ${({ theme }) => theme.secondary};
   color: ${({ theme }) => theme.primary};
 `;
 
@@ -31,7 +29,7 @@ const StyledForm = styled(Form)`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.navbar};
   color: ${({ theme }) => theme.text_secondary};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -87,16 +85,6 @@ const DropdownFormControl = styled(DropdownButton)`
     &:hover {
       color: ${({ theme }) => theme.orange};
     }
-  }
-`;
-
-const ClearButton = styled(Button)`
-  border: none;
-  margin-right: 10px;
-
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.text_primary};
   }
 `;
 
@@ -277,7 +265,6 @@ const CaloriesCalcComp = () => {
           </Form.Group>
           <Row className="mt-3">
             <Col className="text-center">
-              <ClearButton variant="secondary">Clear</ClearButton>
               <SubmitButton type="submit">Calculate</SubmitButton>
             </Col>
           </Row>
