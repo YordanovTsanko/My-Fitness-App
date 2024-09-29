@@ -87,12 +87,11 @@ const StyledFormCheck = styled(Form.Check)`
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, login } = useAuth();
+  const { login } = useAuth();
 
   const handleLogin = (e) => {
     e.preventDefault()
     login({name: "hasan", password:"123"})
-    console.log(user)
   }
 
   return (

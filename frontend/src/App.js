@@ -11,6 +11,7 @@ import Footer from "./components/Footer.jsx";
 import CaloriesCalc from "./pages/CaloriesCalc.jsx";
 import OurPlans from "./pages/OurPlans.jsx";
 import Locations from "./pages/Locations.jsx";
+import Basket from "./pages/Basket.jsx";
 
 const Container = styled.div`
   width: 100%;
@@ -45,6 +46,7 @@ const App = () => {
                 <Route path="/register" element={<Register />} exact />
                 <Route path="/login" element={<Login />} exact />
                 <Route path="/profile" element={<Profile />} exact />
+                <Route path="/basket" element={<Basket />} exact />
               </Routes>
             </Wrapper>
             <Footer />
