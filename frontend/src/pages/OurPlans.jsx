@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Col, Row, Form, Card, Button, Table } from "react-bootstrap";
 import styled from "styled-components";
 import { People, Shield, Star } from "react-bootstrap-icons";
-import Swal from "sweetalert";
-import "./Swal.css";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -73,16 +72,16 @@ const ButtonPlans = styled(Button)`
 
 const OurPlans = () => {
   const [checked, setChecked] = useState(true);
+
   const [cart, setCart] = useState("");
-  const auth = true;
+
+  const { user } = useAuth();
 
   const [plansPrices, setPlansPrices] = useState({
     basic: 15,
     premium: 25,
     vip: 30,
   });
-
-  const navigate = useNavigate();
 
   const handleSwitch = () => {
     if (checked) {
@@ -100,18 +99,30 @@ const OurPlans = () => {
     }
   };
 
-  const handleAddtoBasket = (price) => {
-    if (auth) {
+  const handleAddtoBasket = (item) => {
+    const name = Object.keys(item)[0];
+    const price = Object.values(item)[0]
+    if (user) {
       if (cart.length === 0) {
-        setCart(price);
-        Swal(
-          `Plan added successfully to the card. Price: £${price.toFixed(2)}`
+        setCart({name, price});
+        toast.success(
+          `${name.toUpperCase()} plan added successfully to the card. Price: £${price.toFixed(2)}`,
+          {
+            autoClose: 3000,
+            theme: "colored",
+          }
         );
       } else {
-        Swal(`Already plan is added to the cart. Please check your cart`);
+        toast.warning(
+          `Already plan is added to the cart. Please check your cart`,
+          {
+            autoClose: 3000,
+            theme: "colored",
+          }
+        );
       }
     } else {
-      navigate("/register");
+      toast(`Please log in to proccesd`, { autoClose: 3000 });
     }
   };
 
@@ -244,7 +255,7 @@ const OurPlans = () => {
                   <h2>£{plansPrices.basic.toFixed(2)}</h2>
                   <ButtonPlans
                     className="border-0"
-                    onClick={() => handleAddtoBasket(plansPrices.basic)}
+                    onClick={() => handleAddtoBasket({ basic: plansPrices.basic })}
                   >
                     Buy Now
                   </ButtonPlans>
@@ -361,7 +372,7 @@ const OurPlans = () => {
                   <ButtonPlans
                     green
                     className="border-0"
-                    onClick={() => handleAddtoBasket(plansPrices.premium)}
+                    onClick={() => handleAddtoBasket({ premium: plansPrices.premium })}
                   >
                     Buy Now
                   </ButtonPlans>
@@ -480,7 +491,7 @@ const OurPlans = () => {
                   <h2>£{plansPrices.vip.toFixed(2)}</h2>
                   <ButtonPlans
                     className="border-0"
-                    onClick={() => handleAddtoBasket(plansPrices.vip)}
+                    onClick={() => handleAddtoBasket({ vip: plansPrices.vip })}
                   >
                     Buy Now
                   </ButtonPlans>

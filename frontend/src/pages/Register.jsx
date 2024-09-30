@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Row, Col, Form, Image } from "react-bootstrap";
 import "./Check.css";
+import { useAuth } from "../utils/authContext";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -86,7 +87,29 @@ const StyledFormCheck = styled(Form.Check)`
 `;
 
 const Register = () => {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    password2: "",
+  });
+
   const navigate = useNavigate();
+
+  const { register } = useAuth();
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    await register(userData);
+  };
 
   return (
     <Container>
@@ -113,8 +136,10 @@ const Register = () => {
               <StyledFormGroup controlId="formBasicEmail">
                 <StyledFormLabel>Email address</StyledFormLabel>
                 <StyledFormControl
+                name="email"
                   type="email"
                   placeholder="example@example.com"
+                  onChange={handleInput}
                 />
                 <StyledFormText>
                   We'll never share your email with anyone else.
@@ -123,14 +148,16 @@ const Register = () => {
 
               <StyledFormGroup controlId="formBasicPassword">
                 <StyledFormLabel>Password</StyledFormLabel>
-                <StyledFormControl type="password" placeholder="Password" />
+                <StyledFormControl name="password" type="password" placeholder="Password" onChange={handleInput} />
               </StyledFormGroup>
 
               <StyledFormGroup controlId="formBasicRepPassword">
                 <StyledFormLabel>Repeate Password</StyledFormLabel>
                 <StyledFormControl
+                name="password2"
                   type="password"
                   placeholder="Repeate Password"
+                  onChange={handleInput}
                 />
               </StyledFormGroup>
 
@@ -138,7 +165,11 @@ const Register = () => {
                 <StyledFormCheck type="checkbox" label="Save Password" />
               </StyledFormGroup>
               <div className="d-flex flex-column align-items-start">
-                <Button type="submit" className="w-100">
+                <Button
+                  type="submit"
+                  className="w-100"
+                  onClick={handleRegister}
+                >
                   Submit
                 </Button>
               </div>

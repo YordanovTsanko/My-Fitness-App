@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../utils/authContext";
 
 const Container = styled.div`
   text-align: center;
@@ -84,10 +85,10 @@ const PromoCodeWrapper = styled.div`
     }
 
     @media (max-width: 383px) {
-    gap: 7px;
+      gap: 7px;
       input {
-      width: 170px;
-        padding: 2px !important;
+        width: 170px;
+        padding: 5px !important;
       }
       button {
         padding: 6px !important;
@@ -101,35 +102,39 @@ const StyledButton = styled(Button)`
 `;
 
 const Basket = () => {
-  const initialCart = [{ id: 1, name: "Premium Plan", price: 25 }];
+  const { user, loading } = useAuth();
 
-  const [cart, setCart] = useState(initialCart);
+  const [cart, setCart] = useState("");
+
+  useEffect(() => {
+    if (!loading) {
+      setCart(user.cartItems);
+    }
+  }, [loading, user?.cartItems, cart?.price]);
 
   const removeFromCart = (product) => {
     setCart(cart.filter((item) => item.id !== product.id));
   };
+
   const clearCart = () => {
     setCart([]);
-  };
-
-  const calculateTotal = () => {
-    return cart.reduce((total, product) => total + product.price, 0).toFixed(2);
   };
 
   return (
     <Container className="mt-4">
       <Title>Basket</Title>
-      {cart.length !== 0 ? (
+      {cart ? (
         <CartContainer>
           <Col md={8}>
             <div className="d-flex align-items-start">
-              <h3>{cart.lenght}3 items</h3>
+              <h3>{cart.length} item</h3>
             </div>
             <Table striped bordered hover className="mt-4">
               <thead>
                 <tr>
                   <th>#</th>
                   <th>Item Name</th>
+                  <th>Period</th>
                   <th>Price</th>
                 </tr>
               </thead>
@@ -138,10 +143,17 @@ const Basket = () => {
                   <>
                     <tr key={index}>
                       <td className="pt-3">{index + 1}</td>
-                      <td className="pt-3">{item.name}</td>
-                      <td className="pt-3">${item.price.toFixed(2)}</td>
+                      <td className="pt-3">{item.name.toUpperCase()} plan</td>
+                      <td className="pt-3">{item.length} months</td>
+                      <td className="pt-3">
+                        £
+                        {item.length === 1
+                          ? item.price.toFixed(2)
+                          : (item.price * 10).toFixed(2)}
+                      </td>
                     </tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td>
@@ -175,7 +187,16 @@ const Basket = () => {
               </div>
             </PromoCodeWrapper>
 
-            <TotalPrice>Total: ${calculateTotal()}</TotalPrice>
+            <TotalPrice>
+              Total: £
+              {cart?.price?.length !== 2
+                ? (
+                    cart.reduce((total, item) => total + item.price, 0) * 10
+                  ).toFixed(2)
+                : cart
+                    .reduce((total, item) => total + item.price, 0)
+                    .toFixed(2)}
+            </TotalPrice>
             <div className="d-flex gap-3 justify-content-end align-items-center">
               <StyledButton
                 variant="disabled"

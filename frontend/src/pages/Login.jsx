@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Row, Col, Form, Image } from "react-bootstrap";
-import { useAuth } from '../utils/authContext';
+import { useAuth } from "../utils/authContext";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -87,12 +87,28 @@ const StyledFormCheck = styled(Form.Check)`
 
 const Login = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
   const { login } = useAuth();
 
-  const handleLogin = (e) => {
-    e.preventDefault()
-    login({name: "hasan", password:"123"})
-  }
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(userData);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
   return (
     <Container>
@@ -119,8 +135,10 @@ const Login = () => {
               <StyledFormGroup controlId="formBasicEmail">
                 <StyledFormLabel>Email address</StyledFormLabel>
                 <StyledFormControl
+                  name="email"
                   type="email"
                   placeholder="example@example.com"
+                  onChange={handleInput}
                 />
                 <StyledFormText>
                   We'll never share your email with anyone else.
@@ -129,7 +147,12 @@ const Login = () => {
 
               <StyledFormGroup controlId="formBasicPassword">
                 <StyledFormLabel>Password</StyledFormLabel>
-                <StyledFormControl type="password" placeholder="Password" />
+                <StyledFormControl
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleInput}
+                />
               </StyledFormGroup>
 
               <StyledFormGroup controlId="formBasicCheckbox">
@@ -138,7 +161,9 @@ const Login = () => {
               <div className="d-flex flex-column gap-4 align-items-start">
                 <Link to="/">Forgot Password ? </Link>
 
-                <Button type="submit" className="w-100" onClick={handleLogin}>Submit</Button>
+                <Button type="submit" className="w-100" onClick={handleLogin}>
+                  Submit
+                </Button>
               </div>
             </ChildWrapper>
           </FormWrapper>

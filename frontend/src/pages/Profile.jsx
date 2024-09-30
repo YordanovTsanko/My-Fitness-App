@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col, Card, Button, Form } from "react-bootstrap";
+import { useAuth } from "../utils/authContext";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePageWrapper = styled.div`
   background-color: #343a40;
@@ -76,22 +78,14 @@ const StyledButton = styled(Button)`
 `;
 
 const ProfilePage = () => {
-  const userProfile = {
-    name: "",
-    email: "someemail@abv.bg",
-    password: "*******ENCRYPTED CONTENT",
-    plan: "2131",
-    image: "https://via.placeholder.com/150",
-  };
+  const { user, loading } = useAuth();
 
-  const [email] = useState(userProfile.email);
-  const [name, setName] = useState(userProfile.name);
-  const [image, setImage] = useState(userProfile.image);
+  const navigate = useNavigate();
+
   const [password, setPassword] = useState("");
 
   const handlePasswordChange = (e) => {
     e.preventDefault();
-    console.log("Password changed to:", password);
     setPassword("");
   };
 
@@ -99,19 +93,29 @@ const ProfilePage = () => {
     console.log("Upload new image");
   };
 
+  const addNameHandler = () => {
+    console.log("name adding");
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        navigate("/login");
+      }
+    }
+  }, [navigate, user, loading]);
+
   return (
     <ProfilePageWrapper>
       <Row className="justify-content-center">
         <Col md={12}>
           <ProfileCard className="text-center">
-            <ProfilePicture src={image} alt="Profile" />
+            <ProfilePicture src={user?.image} alt="Profile" />
             <Card.Body>
-              <UserName>{name ? name : email}</UserName>
+              <UserName>{user?.name ? user?.name : user?.email}</UserName>
 
-              <EmailInfo>Email: {email}</EmailInfo>
-              <StyledButton onClick={() => setName(prompt("Enter new name:"))}>
-                Add Name
-              </StyledButton>
+              <EmailInfo>Email: {user?.email}</EmailInfo>
+              <StyledButton onClick={addNameHandler}>Add Name</StyledButton>
               <StyledButton
                 style={{ marginLeft: "10px" }}
                 onClick={handleImageUpload}
@@ -122,12 +126,11 @@ const ProfilePage = () => {
           </ProfileCard>
         </Col>
       </Row>
-
       <PlanSection>
         <h3>Your Current Plan</h3>
         <PlanInfo>
-          {userProfile.plan
-            ? `Plan ID: ${userProfile.plan}`
+          {user?.plan?.length
+            ? `Your plan is ${user?.plan?.name} and your access code is: ${user?.plan?.code}`
             : "No plan available. Please upgrade to enjoy more features."}
         </PlanInfo>
       </PlanSection>
