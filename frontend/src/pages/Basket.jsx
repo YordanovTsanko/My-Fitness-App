@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Image, Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../utils/authContext";
+import axios from "axios";
 
 const Container = styled.div`
   text-align: center;
@@ -104,30 +105,36 @@ const StyledButton = styled(Button)`
 const Basket = () => {
   const { user, loading } = useAuth();
 
-  const [cart, setCart] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading) {
-      setCart(user.cartItems);
+      if (!user) {
+        navigate("/login");
+      }
     }
-  }, [loading, user?.cartItems, cart?.price]);
+  }, [navigate, user, loading]);
 
-  const removeFromCart = (product) => {
-    setCart(cart.filter((item) => item.id !== product.id));
+
+  const removeFromCart = async (item) => {
+    // const response = await axios.post("/api/remove_from_cart", );
+console.log(item)
+    // console.log(response);
   };
 
-  const clearCart = () => {
-    setCart([]);
+  const clearCart = async () => {
+    const response = await axios.post("/api/remove_from_cart");
+    console.log(response);
   };
 
   return (
     <Container className="mt-4">
       <Title>Basket</Title>
-      {cart ? (
+      {user?.cartItems?.length !== 0 ? (
         <CartContainer>
           <Col md={8}>
             <div className="d-flex align-items-start">
-              <h3>{cart.length} item</h3>
+              <h3>{user?.cartItems?.length} item</h3>
             </div>
             <Table striped bordered hover className="mt-4">
               <thead>
@@ -139,7 +146,7 @@ const Basket = () => {
                 </tr>
               </thead>
               <tbody className=" bg-primary">
-                {cart.map((item, index) => (
+                {user?.cartItems?.map((item, index) => (
                   <>
                     <tr key={index}>
                       <td className="pt-3">{index + 1}</td>
@@ -189,24 +196,24 @@ const Basket = () => {
 
             <TotalPrice>
               Total: £
-              {cart?.price?.length !== 2
+              {user?.cartItems?.price?.length === 3
                 ? (
-                    cart.reduce((total, item) => total + item.price, 0) * 10
+                  user?.cartItems?.reduce((total, item) => total + item.price, 0) * 10
                   ).toFixed(2)
-                : cart
-                    .reduce((total, item) => total + item.price, 0)
+                : user?.cartItems
+                    ?.reduce((total, item) => total + item.price, 0)
                     .toFixed(2)}
             </TotalPrice>
             <div className="d-flex gap-3 justify-content-end align-items-center">
               <StyledButton
                 variant="disabled"
                 block
-                disabled={cart.length === 0}
+                disabled={user?.cartItems?.length === 0}
                 onClick={clearCart}
               >
                 Clear Cart
               </StyledButton>
-              <StyledButton block disabled={cart.length === 0}>
+              <StyledButton block disabled={user?.cartItems?.length === 0}>
                 Checkout
               </StyledButton>
             </div>
