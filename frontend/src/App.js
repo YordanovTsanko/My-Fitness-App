@@ -14,6 +14,8 @@ import OurPlans from "./pages/OurPlans.jsx";
 import Locations from "./pages/Locations.jsx";
 import Basket from "./pages/Basket.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.js";
+import CheckOut from "./pages/CheckOut.jsx";
+import Cv from "./components/Cv.jsx";
 
 const Container = styled.div`
   width: 100%;
@@ -43,7 +45,7 @@ const App = () => {
               transition={Flip}
               position="top-center"
             />
-            <Navbar />
+            {/* <Navbar /> */}
             <Wrapper>
               <Routes>
                 <Route path="/" element={<Home />} exact />
@@ -70,9 +72,11 @@ const App = () => {
                 />
                 <Route path="/profile" element={<Profile />} exact />
                 <Route path="/basket" element={<Basket />} exact />
+                <Route path="/checkout/:id" element={<CheckOut />} exact />
+                <Route path="/cv" element={<Cv />} exact />
               </Routes>
             </Wrapper>
-            <Footer />
+            {/* <Footer /> */}
           </Container>
         </ThemeProvider>
       </AuthProvider>

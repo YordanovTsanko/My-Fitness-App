@@ -95,7 +95,7 @@ export const removeFromCart = async (req, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: "Items removed successfully" });
+      .json({ success: true, message: "Item removed successfully" });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error });
   }

@@ -4,7 +4,6 @@ import { Basket, ListTask, X } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/authContext";
 
-
 const NavbarContainer = styled.nav`
   display: flex;
   align-items: center;
@@ -119,10 +118,13 @@ const NavItem = styled.li`
 `;
 
 const BasketContainer = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${({ theme }) => theme.secondary};
-  cursor: pointer;
+  a {
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.secondary};
+    cursor: pointer;
+    text-decoration: none;
+  }
   span {
     margin-left: 14px;
     font-size: 1rem;
@@ -131,7 +133,6 @@ const BasketContainer = styled.div`
     display: none;
     color: ${({ theme }) => theme.secondary};
   }
-
   @media (max-width: 855px) {
     margin-right: 0px;
   }
@@ -171,9 +172,11 @@ const Navbar = () => {
       </ButtonsWrapper>
       <NavMenu isOpen={isOpen}>
         {user !== null && (
-          <BasketContainer onClick={() => navigate("/basket")}>
-            <Basket size={26} />
-            <span>Basket</span>
+          <BasketContainer>
+            <a href="/basket">
+              <Basket size={26} />
+              <span>Basket</span>
+            </a>
           </BasketContainer>
         )}
         {user !== null && (

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../utils/authContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   text-align: center;
@@ -103,6 +104,8 @@ const StyledButton = styled(Button)`
 `;
 
 const Basket = () => {
+  const [cart, setCart] = useState([]);
+
   const { user, loading } = useAuth();
 
   const navigate = useNavigate();
@@ -111,26 +114,50 @@ const Basket = () => {
     if (!loading) {
       if (!user) {
         navigate("/login");
+      } else {
+        setCart(user.cartItems);
       }
     }
   }, [navigate, user, loading]);
 
-
   const removeFromCart = async (item) => {
-    // const response = await axios.post("/api/remove_from_cart", );
-console.log(item)
-    // console.log(response);
+    try {
+      const response = await axios.post("/api/remove_from_cart", item);
+
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        theme: "colored",
+      });
+      setCart((prevCart) =>
+        prevCart.filter((cartItem) => cartItem._id !== item._id)
+      );
+    } catch (error) {
+      if (error.response.data.message) {
+        toast.error(error.response.data.message, {
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        console.error(error);
+      }
+    }
   };
 
   const clearCart = async () => {
-    const response = await axios.post("/api/remove_from_cart");
-    console.log(response);
+    try {
+      const response = await axios.post("/api/clearCart");
+      toast.success(response.data.message, {
+        autoClose: 3000,
+        theme: "colored",
+      });
+      setCart([]);
+    } catch (error) {}
   };
 
   return (
     <Container className="mt-4">
       <Title>Basket</Title>
-      {user?.cartItems?.length !== 0 ? (
+      {cart.length !== 0 ? (
         <CartContainer>
           <Col md={8}>
             <div className="d-flex align-items-start">
@@ -151,7 +178,7 @@ console.log(item)
                     <tr key={index}>
                       <td className="pt-3">{index + 1}</td>
                       <td className="pt-3">{item.name.toUpperCase()} plan</td>
-                      <td className="pt-3">{item.length} months</td>
+                      <td className="pt-3">{item.length} month{item.length > 1 && "s"}</td>
                       <td className="pt-3">
                         £
                         {item.length === 1
@@ -196,14 +223,17 @@ console.log(item)
 
             <TotalPrice>
               Total: £
-              {user?.cartItems?.price?.length === 3
-                ? (
-                  user?.cartItems?.reduce((total, item) => total + item.price, 0) * 10
-                  ).toFixed(2)
-                : user?.cartItems
-                    ?.reduce((total, item) => total + item.price, 0)
-                    .toFixed(2)}
+              {(() => {
+                const totalPrice = user?.cartItems?.reduce((total, item) => {
+                  return (
+                    total + (item.length === 1 ? item.price : item.price * 10)
+                  );
+                }, 0);
+
+                return totalPrice.toFixed(2);
+              })()}
             </TotalPrice>
+
             <div className="d-flex gap-3 justify-content-end align-items-center">
               <StyledButton
                 variant="disabled"
@@ -213,7 +243,7 @@ console.log(item)
               >
                 Clear Cart
               </StyledButton>
-              <StyledButton block disabled={user?.cartItems?.length === 0}>
+              <StyledButton onClick={()=> navigate(`/checkout/${user?.cartItems[0]?._id}`)} block disabled={user?.cartItems?.length === 0}>
                 Checkout
               </StyledButton>
             </div>
